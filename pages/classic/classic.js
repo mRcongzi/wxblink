@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    test: 1,
   },
 
   /**
@@ -17,8 +17,8 @@ Page({
       header: {
         appkey: "DXfoFDMsUdMDbwJK",
       },
-      success: function(res){
-        console.log(res)
+      success:(res) => {
+        console.log(this.data.test)
       }
     })
   },
