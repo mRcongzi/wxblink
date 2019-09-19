@@ -2,6 +2,9 @@ import {config as conf} from '/config.js'
 
 class HTTP{
   request(params){
+    if(!params.method){
+      params.method = "GET"
+    }
     wx.request({
       url: conf.api_base_url + params.url,
       method: params.method,
