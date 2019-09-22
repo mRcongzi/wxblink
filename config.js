@@ -1,7 +1,7 @@
 
 const config = {
   api_base_url: "http://bl.7yue.pro/v1/",
-  appkey: "hRjg132BNprWdfpl",
+  appkey: "dDf9z2bPPjI3AHl8",
 }
 
 const errorCodes = {
