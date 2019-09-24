@@ -26,7 +26,6 @@ Page({
   },
 
   onLike: function(event){
-    console.log(event)
     let behavior = event.detail.behavior
     likeModel.like(behavior, this.data.classicData.id, this.data.classicData.type)
   },

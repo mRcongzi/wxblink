@@ -9,7 +9,7 @@ Component({
       observer: function(newVal, oldVal, changePath){
         let val = newVal < 10 ? '0'+newVal: newVal
         this.setData({
-          _index:val
+          _index:val  // 使用_index来规避修改属性值导致的无限循环
         })
       }
     }
