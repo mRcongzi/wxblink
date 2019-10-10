@@ -32,18 +32,23 @@ Page({
     likeModel.like(behavior, this.data.classicData.id, this.data.classicData.type)
   },
 
-  onNext: function(event){
+  _updateClassic: function(action){
+    let index = this.data.classicData.index
+    classicModel.getClassic(index, action, (res) => {
+      this.setData({
+        classicData: res,
+        latest: classicModel.isLatest(res.index),
+        first: classicModel.isFirst(res.index)
+      })
+    })
+  },
 
+  onNext: function(event){
+    this._updateClassic('next')
   },
 
   onPrevious: function(event){
-    let index = this.data.classicData.index
-    classicModel.getPrevious(index, (res) => {
-      // console.log(res)
-      this.setData({
-        classicData: res
-      })
-    })
+    this._updateClassic('previous')
   },
 
   /**
