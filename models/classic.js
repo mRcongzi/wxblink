@@ -16,7 +16,6 @@ class ClassicModel extends HTTP{
   getClassic(index, action, sCallback){
     let key = action == "next" ? this._getKey(index+1) : this._getKey(index-1)
     let classic = wx.getStorageSync(key)
-    console.log(classic)
 
     if(!classic){
       this.request({
