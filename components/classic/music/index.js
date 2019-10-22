@@ -11,6 +11,7 @@ Component({
 
   properties: {
     src: String,
+    title: String,
   },
 
   /**
@@ -22,13 +23,17 @@ Component({
     playSrc: 'images/player@play.png'
   },
 
+  detached: function(event){
+    mMgr.stop()
+  },
+
   /**
    * 组件的方法列表
    */
   methods: {
     onPlay: function(event) {
       // 切换图片
-      mMgr.title = "MusicPlayer"
+      mMgr.title = this.properties.title
       if(!this.data.playing){
         this.setData({
           playing: true
