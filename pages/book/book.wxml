@@ -1,1 +1,19 @@
-<v-book book="{{books[0]}}" />
+<!-- <block wx:for="{{books}}" wx:key="key">
+  <v-book book="{{item}}" />
+</block> -->
+<!-- <v-book wx:for="{{books}}" wx:key="{{}}" book="{{item}}" /> -->
+<view class="container">
+  <view class="header">
+    <view class="box">
+      <image src="/images/icon/search.png"></image>
+      <text>搜索书籍</text>
+    </view>
+  </view>
+  <view class="sub-container">
+    <image class="head-img" src="/images/book/quality.png"></image>
+    <view class="book-container">
+      <!-- wx:key用法：object，填写一个不重复的值，必须为数字或字符串；array，直接用*this -->
+      <v-book wx:for="{{books}}" wx:key="id" book="{{item}}" />
+    </view>
+  </view>
+</view>
