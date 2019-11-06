@@ -28,7 +28,7 @@ class HTTP {
       },
       fail: (err) => {
         reject()
-        this._show_error(1)
+        this._show_error(err)
       }
     })
   }
