@@ -63,3 +63,12 @@
   font-size: 22rpx;
   color: #aaa;
 }
+
+/* 加上 > 为子元素选择，不加 > 为后代选择器 */
+.comment-container > v-tag:nth-child(1) > view{
+  background-color: #fffbdd;
+}
+
+.comment-container > v-tag:nth-child(2) > view{
+  background-color: #eefbff;
+}
