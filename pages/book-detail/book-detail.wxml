@@ -8,7 +8,7 @@
     <text class="headline">短评</text>
     <view class="comment-container">
       <block wx:for="{{comments}}" wx:key="">
-        <v-tag text="{{item.content}}">
+        <v-tag tag-class="ex-tag-{{index}}" text="{{item.content}}">
           <text class="num" slot="after">{{'+'+item.nums}}</text>
         </v-tag>
       </block>

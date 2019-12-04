@@ -8,6 +8,11 @@ Component({
     multipleSlots: true
   },
 
+  // 外部传递进来的自定义样式类
+  externalClasses: [
+    'tag-class'
+  ],
+
   properties: {
     text: String
   },
