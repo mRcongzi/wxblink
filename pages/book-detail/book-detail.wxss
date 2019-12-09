@@ -58,6 +58,11 @@
   margin-bottom: 10rpx;
 }
 
+.content{
+  text-indent: 58rpx;
+  font-weight: 500;
+}
+
 .num {
   margin-left: 5px;
   font-size: 22rpx;
@@ -79,4 +84,24 @@
 
 .ex-tag-1{
   background-color: #eefbff!important;
+}
+
+.detail-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 100rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.vertical{
+  display: flex;
+  flex-direction: column;
+}
+
+.description{
+  color: #999;
+  margin-right: 30rpx;
 }
