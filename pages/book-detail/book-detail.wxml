@@ -42,4 +42,47 @@
       </view>
     </view>
   </view>
+
+  <view class="post-container" wx:if="{{!posting}}">
+    <view class="post-fake" bind:tap="onFakePost">
+      <text>输入短评</text>
+    </view>
+    <view class="like-container">
+        <v-like bind:like="onLike" class="like" like="{{likeStatus}}" count="{{likeCount}}" />
+      </view>
+  </view>
 </view>
+
+<!-- 动态评论输入框 -->
+<view wx:if="{{posting}}" class="posting-container">
+  <view class="post-header">
+    <text>仅可点击标签+1</text>
+    <text class="cancel" bind:tap="onCancel">取消</text>
+  </view>
+  <view class="comment-container">
+    <block wx:for="{{util.limit(comments, 3)}}" wx:key="">
+        <v-tag tag-class="{{localModule.highlight(index)}}" text="{{item.content}}">
+          <text class="num" slot="after">{{'+'+item.nums}}</text>
+        </v-tag>
+      </block>
+  </view>
+  <input class="post" placeholder="短评最多12个字"></input>
+</view>
+
+<v-mask wx:if="{{posting}}" />
+
+<wxs module="localModule">
+  var highlight = function(index){
+    if(index == 0){
+      return 'ex-tag-0'
+    }
+    if(index == 1){
+      return 'ex-tag-1'
+    }
+    return ''
+  }
+
+  module.exports = {
+    highlight: highlight
+  }
+</wxs>
