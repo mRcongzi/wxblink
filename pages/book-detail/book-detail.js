@@ -56,7 +56,6 @@ Page({
   },
 
   onLike(event){
-    console.log(event)
     const like_or_cancel = event.detail.behavior
     likeModel.like(like_or_cancel, this.data.book.id, 400)
   },
@@ -71,6 +70,37 @@ Page({
     this.setData({
       posting: false
     })
+  },
+
+  onPost(event){
+    const comment = event.detail.text
+
+    if(comment.length > 12){
+      wx.showToast({
+        'title': "短评不能超过12个字",
+        icon: 'none'
+      })
+      return
+    }
+
+    bookModel.postComment(this.data.book.id, comment).then(
+      res => {
+        wx.showToast({
+          title: '+1',
+          icon: 'none'
+        })
+
+        this.data.comments.unshift({
+          content: comment,
+          nums: 1
+        })
+
+        this.setData({
+          comments: this.data.comments,
+          posting: false
+        })
+      }
+    )
   },
 
   /**
