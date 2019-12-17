@@ -27,7 +27,6 @@ Page({
    */
   onLoad: function (options) {
     const bid = options.bid
-    console.log(bid)
     const detail = bookModel.getDetail(bid)
     const comments = bookModel.getComments(bid)
     const likeStatus = bookModel.getLikeStatus(bid)
@@ -73,7 +72,15 @@ Page({
   },
 
   onPost(event){
-    const comment = event.detail.text
+    const comment = event.detail.text || event.detail.value
+
+    if(!comment){
+      wx.showToast({
+        title: '短评内容不能为空',
+        icon: 'none'
+      })
+      return
+    }
 
     if(comment.length > 12){
       wx.showToast({

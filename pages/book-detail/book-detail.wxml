@@ -9,8 +9,9 @@
 
   <view class="sub-container">
     <text class="headline">短评</text>
+    <text class="shadow" wx:if="{{comments==false}}">还没有短评</text>
     <view class="comment-container">
-      <block wx:for="{{util.limit(comments, 8)}}" wx:key="">
+      <block wx:for="{{util.limit(comments, 10)}}" wx:key="">
         <v-tag tag-class="ex-tag-{{index}}" text="{{item.content}}">
           <text class="num" slot="after">{{'+'+item.nums}}</text>
         </v-tag>
@@ -56,7 +57,8 @@
 <!-- 动态评论输入框 -->
 <view wx:if="{{posting}}" class="posting-container">
   <view class="post-header">
-    <text>仅可点击标签+1</text>
+    <text wx:if="{{comments==false}}">仅可点击标签+1</text>
+    <text wx:else>暂无短评</text>
     <text class="cancel" bind:tap="onCancel">取消</text>
   </view>
   <view class="comment-container">
@@ -66,7 +68,7 @@
         </v-tag>
       </block>
   </view>
-  <input class="post" placeholder="短评最多12个字"></input>
+  <input bindconfirm="onPost" class="post" placeholder="短评最多12个字"></input>
 </view>
 
 <v-mask wx:if="{{posting}}" />
