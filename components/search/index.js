@@ -1,6 +1,8 @@
 // components/search/index.js
 import {KeywordModel} from '../../models/keyword.js'
+import {BookModel} from '../../models/book.js'
 const keywordModel = new KeywordModel()
+const bookModel = new BookModel()
 
 Component({
   /**
@@ -15,7 +17,10 @@ Component({
    */
   data: {
     historyWords:[],
-    hotWords: []
+    hotWords: [],
+    dataArray: [],
+    searching: false,
+    searchWord: ""
   },
 
   // 组件激活时调用的方法
@@ -37,9 +42,26 @@ Component({
     onCancel(event){
       this.triggerEvent("cancel", {}, {})
     },
+
     onConfirm(event){
-      const word = event.detail.value
-      keywordModel.addToHistory(word)
+      const word = event.detail.value || event.detail.text
+      this.setData({
+        searching: true,
+        searchWord: word
+      })
+      bookModel.search(0, word).then(res=>{
+        this.setData({
+          dataArray: res.books,
+        })
+        keywordModel.addToHistory(word)
+      })
     },
+
+    onDelete(event){
+      this.setData({
+        searching: false,
+        searchWord: ""
+      })
+    }
   }
 })
