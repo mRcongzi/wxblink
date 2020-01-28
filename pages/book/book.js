@@ -13,7 +13,8 @@ Page({
    */
   data: {
     books: [],
-    searching: false
+    searching: false,
+    more: false,
   },
 
   /**
@@ -86,5 +87,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onReachBottom(){
+    // 课程使用随机数来更新more属性的状态
+    // 我这里使用缓存上个状态然后取反的方法来触发more的更新
+    const last_status = wx.getStorageSync("more_status") | false
+    const new_stauts = !last_status
+    this.setData({
+      more: new_stauts
+    })
+    wx.setStorageSync('more_status', new_stauts)
   }
+
 })
