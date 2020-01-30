@@ -17,7 +17,9 @@ let paginationBeh = Behavior({
     },
 
     setTotal(total){
-      this.data.total = total
+      this.setData({
+        total
+      })
     },
 
     hasMore(){

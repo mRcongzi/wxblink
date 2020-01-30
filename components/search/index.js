@@ -26,7 +26,8 @@ Component({
     hotWords: [],
     searching: false,
     searchWord: "",
-    loading: false
+    loading: false,
+    loadingCenter: false
   },
 
   // 组件激活时调用的方法
@@ -51,33 +52,47 @@ Component({
       }
 
       if(this.hasMore()){
-        this.data.loading = true
+        this._setLock(true)
         bookModel.search(this.getCurrentStart(), this.data.searchWord).then(res => {
           this.setMoreData(res.books)
-          this.data.loading = false
+          this._setLock(false)
+        }, ()=>{
+          this._setLock(false)
         })
       }
     },
 
+    _setLock(lock_status){
+      this.setData({
+        loading: lock_status
+      })
+    },
+
     onCancel(event){
       this.triggerEvent("cancel", {}, {})
+      this.initialize()
     },
 
     onConfirm(event){
       const word = event.detail.value || event.detail.text
       this.setData({
         searching: true,
-        searchWord: word
+        searchWord: word,
+        loadingCenter: true
       })
-      this.initialize()
+
       bookModel.search(0, word).then(res=>{
         this.setMoreData(res.books)
         this.setTotal(res.total)
         keywordModel.addToHistory(word)
+        this.setData({
+          loadingCenter: false
+        })
       })
     },
 
     onDelete(event){
+      this.initialize()
       this.setData({
         searching: false,
         searchWord: ""
