@@ -1,6 +1,10 @@
 <view class="container">
-  <image src="/images/my/my@bg.png"></image>
-  <open-data type="userAvatarUrl" class="avatar avatar-position" />
+  <image src="/images/my/my@bg.png" class="bg"></image>
+  <!-- <open-data type="userAvatarUrl" class="avatar avatar-position" /> -->
+  <v-button open-type="getUserInfo" class="avatar-position" bind:getuserinfo="onGetUserInfo">
+    <image slot="img" class="avatar" src="/images/my/my.png" />
+  </v-button>
+  
   <view class="about-container">
     <view class="about-us">
       <image src="/images/my/about.png"></image>
@@ -11,4 +15,6 @@
       <text class="desctiption">喜欢的书</text>
     </view>
   </view>
+
+  <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权</button> -->
 </view>
