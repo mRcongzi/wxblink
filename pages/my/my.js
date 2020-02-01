@@ -1,44 +1,85 @@
 // pages/my/my.js
+import {ClassicModel} from '../../models/classic.js'
+import {BookModel} from '../../models/book.js'
+
+const classicModel = new ClassicModel()
+const bookModel = new BookModel()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-  },
+    authorized: false,
+    userInfo: null,
+    bookCount: 0,
+    classics: []
+ },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.userAuthorized()
-    // wx.getUserInfo({
-    //   success: data => {
-    //     console.log(data)
-    //   }
-    // })
+    this.getMyBookCount()
+    this.getMyFavor()
   },
 
   userAuthorized(){
-    wx.getSetting({
+    wx.getSetting({   //检测是否授权
       success: data => {
         if(data.authSetting["scope.userInfo"]){
-          wx.getUserInfo({
+          wx.getUserInfo({  // 成功则获取用户信息  
             success: data => {
-              console.log(data)
+              this.setData({
+                authorized: true,
+                userInfo: data.userInfo
+              })
             }
           })
-        }else{
-          console.log("err")
         }
       }
     })
   },
 
+  getMyBookCount(){
+    bookModel.getMyBookCount().then(res => {
+      this.setData({
+        bookCount: res.count
+      })
+    })
+  },
+
+  getMyFavor(){
+    classicModel.getMyFavor(res => {
+      this.setData({
+        classics: res
+      })
+    })
+  },
+
   onGetUserInfo(event){
     const userInfo = event.detail.userInfo
-    console.log(userInfo)
+    if(userInfo){
+      this.setData({
+        userInfo,
+        authorized:true 
+      })
+    }
+    
+  },
+
+  onJumpToAbout(event){
+    wx.navigateTo({
+      url: '/pages/about/about',
+    })
+  },
+
+  onStudy(event){
+    wx.navigateTo({
+      url: '/pages/course/course',
+    })
   },
 
   /**
