@@ -1,6 +1,7 @@
 // pages/my/my.js
 import {ClassicModel} from '../../models/classic.js'
 import {BookModel} from '../../models/book.js'
+import {promisic} from '../../util/common.js'
 
 const classicModel = new ClassicModel()
 const bookModel = new BookModel()
@@ -21,7 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.userAuthorized()
+    this.userAuthorized2()
     this.getMyBookCount()
     this.getMyFavor()
   },
@@ -41,6 +42,19 @@ Page({
         }
       }
     })
+  },
+
+  // promise+async/await优化代码
+  async userAuthorized2(){
+    const data = await promisic(wx.getSetting)()
+    if(data.authSetting['scope.userInfo']){
+      const res = await promisic(wx.getUserInfo)()
+      this.setData({
+        authorized:true,
+        userInfo: res.userInfo
+      })
+    }
+    return false
   },
 
   getMyBookCount(){

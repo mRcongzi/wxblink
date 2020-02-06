@@ -20,12 +20,18 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    bookModel.getHotList().then(res => {
-      this.setData({
-        books: res
-      })
+  // ES6函数定义可以用async onLoad(){}
+  // async和await等于是把异步切换成同步，等待结果返回后赋值给变量
+  onLoad: async function (options) {
+    const books = await bookModel.getHotList()
+    this.setData({
+      books
     })
+    // bookModel.getHotList().then(res => {
+    //   this.setData({
+    //     books: res
+    //   })
+    // })
   },
 
   onSearch(event){
